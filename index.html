@@ -104,7 +104,9 @@
         /* Hero Text Slide Up Animation */
         .slide-text-container {
             overflow: hidden;
-            height: 1.25em;
+            height: 1.2em;
+            display: inline-flex;
+            align-items: center;
         }
 
         .slide-text-wrapper {
@@ -155,7 +157,6 @@
     <!-- BACKGROUND COSMIC RED DUST FX CANVAS -->
     <canvas id="cosmicDustCanvas" class="fixed inset-0 w-full h-full pointer-events-none z-0 opacity-40"></canvas>
 
-    <!-- -->
     <header class="fixed top-0 left-0 right-0 z-50 glass-card border-b border-obsidian-border/50 px-4 lg:px-8 py-3.5 flex items-center justify-between">
         <div class="flex items-center space-x-3">
             <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-solar-red to-solar-flame flex items-center justify-center shadow-lg shadow-solar-red/40">
@@ -210,7 +211,6 @@
     <!-- MAIN 10-PAGE CONTENT -->
     <main class="relative z-10 pt-16">
 
-        <!-- -->
         <!-- ==========================================
              PAGE 1: HERO & SLIDING ANIMATION
              ========================================== -->
@@ -222,20 +222,20 @@
                         <span>Solar Tech Index • 2026</span>
                     </div>
 
-                    <!-- Sliding Header Animation -->
+                    <!-- Sliding Header Animation Fixed -->
                     <div class="space-y-2">
                         <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight leading-none text-white">
                             My Top 5 Digital
                         </h1>
-                        <div class="text-4xl sm:text-6xl font-black text-solar-flame flex items-center space-x-3">
-                            <span>Tools 2026:</span>
-                            <div class="slide-text-container h-14 sm:h-20 inline-block overflow-hidden relative">
-                                <div class="slide-text-wrapper font-display text-transparent bg-clip-text bg-gradient-to-r from-solar-red via-solar-flame to-solar-amber leading-tight">
-                                    <div class="h-14 sm:h-20 flex items-center">Neural Canvas</div>
-                                    <div class="h-14 sm:h-20 flex items-center">Quantum IDE</div>
-                                    <div class="h-14 sm:h-20 flex items-center">Hologram Sync</div>
-                                    <div class="h-14 sm:h-20 flex items-center">SynthBrain DB</div>
-                                    <div class="h-14 sm:h-20 flex items-center">CyberPulse Shield</div>
+                        <div class="text-3xl sm:text-5xl font-black text-solar-flame flex flex-wrap items-center gap-x-3 gap-y-1">
+                            <span class="whitespace-nowrap">Tools 2026:</span>
+                            <div class="slide-text-container overflow-hidden inline-block relative">
+                                <div class="slide-text-wrapper font-display text-transparent bg-clip-text bg-gradient-to-r from-solar-red via-solar-flame to-solar-amber leading-none">
+                                    <div class="h-[1.2em] flex items-center whitespace-nowrap">Neural Canvas</div>
+                                    <div class="h-[1.2em] flex items-center whitespace-nowrap">Quantum IDE</div>
+                                    <div class="h-[1.2em] flex items-center whitespace-nowrap">Hologram Sync</div>
+                                    <div class="h-[1.2em] flex items-center whitespace-nowrap">SynthBrain DB</div>
+                                    <div class="h-[1.2em] flex items-center whitespace-nowrap">CyberPulse Shield</div>
                                 </div>
                             </div>
                         </div>
@@ -292,7 +292,6 @@
             </div>
         </section>
 
-        <!-- -->
         <!-- ==========================================
              PAGE 2: THE 2026 TECH LANDSCAPE
              ========================================== -->
@@ -340,7 +339,6 @@
             </div>
         </section>
 
-        <!-- -->
         <!-- ==========================================
              PAGE 3: TOOL #1 - NeuralCanvas AI
              ========================================== -->
@@ -405,7 +403,6 @@
             </div>
         </section>
 
-        <!-- -->
         <!-- ==========================================
              PAGE 4: TOOL #2 - QuantumCode Studio
              ========================================== -->
@@ -454,7 +451,6 @@ await agent.optimizeFullStack({
             </div>
         </section>
 
-        <!-- -->
         <!-- ==========================================
              PAGE 5: TOOL #3 - HologramSync
              ========================================== -->
@@ -498,7 +494,6 @@ await agent.optimizeFullStack({
             </div>
         </section>
 
-        <!-- -->
         <!-- ==========================================
              PAGE 6: MIDDLE SECTION - SICK RED SOLAR SUPERNOVA CORE
              ========================================== -->
@@ -521,7 +516,6 @@ await agent.optimizeFullStack({
             </div>
         </section>
 
-        <!-- -->
         <!-- ==========================================
              PAGE 7: TOOL #4 - SynthBrain DB
              ========================================== -->
@@ -567,7 +561,6 @@ await agent.optimizeFullStack({
             </div>
         </section>
 
-        <!-- -->
         <!-- ==========================================
              PAGE 8: TOOL #5 - CyberPulse Security
              ========================================== -->
@@ -603,7 +596,6 @@ await agent.optimizeFullStack({
             </div>
         </section>
 
-        <!-- -->
         <!-- ==========================================
              PAGE 9: TOOL MATRIX COMPARISON
              ========================================== -->
@@ -697,7 +689,6 @@ await agent.optimizeFullStack({
             </div>
         </section>
 
-        <!-- -->
         <!-- ==========================================
              PAGE 10: ALL 5 TOOLS REDIRECT LAUNCHPAD
              ========================================== -->
@@ -788,7 +779,6 @@ await agent.optimizeFullStack({
 
     </main>
 
-    <!-- -->
     <script>
         // Initialize Lucide icons
         lucide.createIcons();
