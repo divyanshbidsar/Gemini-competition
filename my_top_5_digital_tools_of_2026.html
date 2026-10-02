@@ -1,0 +1,1072 @@
+<!DOCTYPE html>
+<html lang="en" class="dark scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Top 5 Digital Tools of 2026 | Red Solar Portal</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        obsidian: {
+                            950: '#050103',
+                            900: '#0b0206',
+                            800: '#15050c',
+                            700: '#220814',
+                            border: 'rgba(255, 23, 68, 0.2)',
+                        },
+                        solar: {
+                            red: '#ff1744',
+                            crimson: '#d50000',
+                            flame: '#ff5252',
+                            amber: '#ff9100',
+                            rose: '#ff2a5f'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Outfit', 'sans-serif'],
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'float': 'float 5s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            background-color: #050103;
+            color: #f8fafc;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, .font-display {
+            font-family: 'Outfit', sans-serif;
+        }
+
+        /* Red Solar Glassmorphism */
+        .glass-card {
+            background: rgba(21, 5, 12, 0.7);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border: 1px solid rgba(255, 23, 68, 0.22);
+            box-shadow: 0 8px 32px 0 rgba(255, 23, 68, 0.12);
+        }
+
+        .glass-card-hover {
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .glass-card-hover:hover {
+            border-color: rgba(255, 82, 82, 0.6);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px 0 rgba(255, 23, 68, 0.35);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #050103;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 23, 68, 0.4);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 82, 82, 0.8);
+        }
+
+        /* Hero Text Slide Up Animation */
+        .slide-text-container {
+            overflow: hidden;
+            height: 1.25em;
+        }
+
+        .slide-text-wrapper {
+            animation: slideUp 12s cubic-bezier(0.68, -0.55, 0.27, 1.55) infinite;
+        }
+
+        @keyframes slideUp {
+            0%, 18% { transform: translateY(0%); }
+            20%, 38% { transform: translateY(-20%); }
+            40%, 58% { transform: translateY(-40%); }
+            60%, 78% { transform: translateY(-60%); }
+            80%, 98% { transform: translateY(-80%); }
+            100% { transform: translateY(0%); }
+        }
+
+        /* Half-screen continuous Solar Wind canvas container */
+        #wind-canvas-container {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 50vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 5;
+            mask-image: linear-gradient(to right, transparent, black 30%);
+            -webkit-mask-image: linear-gradient(to right, transparent, black 30%);
+        }
+
+        .gradient-red-btn {
+            background: linear-gradient(135deg, #ff1744 0%, #ff5252 100%);
+            box-shadow: 0 0 25px rgba(255, 23, 68, 0.45);
+            transition: all 0.3s ease;
+        }
+
+        .gradient-red-btn:hover {
+            box-shadow: 0 0 40px rgba(255, 82, 82, 0.8);
+            transform: scale(1.02);
+        }
+    </style>
+</head>
+<body class="relative min-h-screen bg-obsidian-950 text-slate-100 selection:bg-solar-red selection:text-white">
+
+    <!-- CONTINUOUS HALF-SCREEN RED SOLAR WIND CANVAS -->
+    <div id="wind-canvas-container">
+        <canvas id="solarWindCanvas" class="w-full h-full"></canvas>
+    </div>
+
+    <!-- BACKGROUND COSMIC RED DUST FX CANVAS -->
+    <canvas id="cosmicDustCanvas" class="fixed inset-0 w-full h-full pointer-events-none z-0 opacity-40"></canvas>
+
+    <!-- -->
+    <header class="fixed top-0 left-0 right-0 z-50 glass-card border-b border-obsidian-border/50 px-4 lg:px-8 py-3.5 flex items-center justify-between">
+        <div class="flex items-center space-x-3">
+            <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-solar-red to-solar-flame flex items-center justify-center shadow-lg shadow-solar-red/40">
+                <i data-lucide="sun" class="w-5 h-5 text-obsidian-950 font-bold animate-spin-slow"></i>
+            </div>
+            <span class="font-display font-bold text-lg tracking-wider text-white">SOLAR<span class="text-solar-flame">2026</span></span>
+        </div>
+
+        <!-- Desktop Navigation Bar for 10 Pages -->
+        <nav class="hidden xl:flex items-center space-x-1 text-xs font-medium text-slate-300">
+            <a href="#p1" class="px-2.5 py-1.5 rounded-lg hover:text-solar-flame hover:bg-obsidian-800 transition">01. Hero</a>
+            <a href="#p2" class="px-2.5 py-1.5 rounded-lg hover:text-solar-flame hover:bg-obsidian-800 transition">02. Overview</a>
+            <a href="#p3" class="px-2.5 py-1.5 rounded-lg hover:text-solar-flame hover:bg-obsidian-800 transition">03. Tool #1</a>
+            <a href="#p4" class="px-2.5 py-1.5 rounded-lg hover:text-solar-flame hover:bg-obsidian-800 transition">04. Tool #2</a>
+            <a href="#p5" class="px-2.5 py-1.5 rounded-lg hover:text-solar-flame hover:bg-obsidian-800 transition">05. Tool #3</a>
+            <a href="#p6" class="px-2.5 py-1.5 rounded-lg hover:text-solar-flame hover:bg-obsidian-800 transition">06. Solar Core</a>
+            <a href="#p7" class="px-2.5 py-1.5 rounded-lg hover:text-solar-flame hover:bg-obsidian-800 transition">07. Tool #4</a>
+            <a href="#p8" class="px-2.5 py-1.5 rounded-lg hover:text-solar-flame hover:bg-obsidian-800 transition">08. Tool #5</a>
+            <a href="#p9" class="px-2.5 py-1.5 rounded-lg hover:text-solar-flame hover:bg-obsidian-800 transition">09. Matrix</a>
+            <a href="#p10" class="px-2.5 py-1.5 rounded-lg hover:text-solar-flame hover:bg-obsidian-800 transition">10. Launchpad</a>
+        </nav>
+
+        <div class="flex items-center space-x-3">
+            <a href="#p10" class="gradient-red-btn text-white font-bold text-xs px-4 py-2 rounded-lg flex items-center space-x-1.5">
+                <span>Top 5 Direct Links</span>
+                <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+            </a>
+            <!-- Mobile Menu Drawer Toggle -->
+            <button id="mobileMenuBtn" class="xl:hidden p-2 text-slate-300 hover:text-solar-flame glass-card rounded-lg">
+                <i data-lucide="menu" class="w-5 h-5"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Mobile Drawer Nav -->
+    <div id="mobileDrawer" class="fixed inset-0 bg-obsidian-950/95 backdrop-blur-xl z-40 transform translate-x-full transition-transform duration-300 xl:hidden pt-20 px-6 overflow-y-auto">
+        <div class="flex flex-col space-y-3 font-display">
+            <span class="text-xs uppercase tracking-widest text-solar-flame mb-2">Jump To Page</span>
+            <a href="#p1" onclick="closeMobileMenu()" class="p-3 glass-card rounded-xl text-slate-200">01. Hero & Sliding Title</a>
+            <a href="#p2" onclick="closeMobileMenu()" class="p-3 glass-card rounded-xl text-slate-200">02. 2026 Tech Landscape</a>
+            <a href="#p3" onclick="closeMobileMenu()" class="p-3 glass-card rounded-xl text-slate-200">03. Tool #1: NeuralCanvas AI</a>
+            <a href="#p4" onclick="closeMobileMenu()" class="p-3 glass-card rounded-xl text-slate-200">04. Tool #2: QuantumCode Studio</a>
+            <a href="#p5" onclick="closeMobileMenu()" class="p-3 glass-card rounded-xl text-slate-200">05. Tool #3: HologramSync</a>
+            <a href="#p6" onclick="closeMobileMenu()" class="p-3 glass-card rounded-xl text-slate-200">06. Middle Solar Flare Core FX</a>
+            <a href="#p7" onclick="closeMobileMenu()" class="p-3 glass-card rounded-xl text-slate-200">07. Tool #4: SynthBrain DB</a>
+            <a href="#p8" onclick="closeMobileMenu()" class="p-3 glass-card rounded-xl text-slate-200">08. Tool #5: CyberPulse Security</a>
+            <a href="#p9" onclick="closeMobileMenu()" class="p-3 glass-card rounded-xl text-slate-200">09. Feature Comparison Matrix</a>
+            <a href="#p10" onclick="closeMobileMenu()" class="p-3 glass-card rounded-xl text-slate-200">10. 5 Direct Redirect Portal</a>
+        </div>
+    </div>
+
+    <!-- MAIN 10-PAGE CONTENT -->
+    <main class="relative z-10 pt-16">
+
+        <!-- -->
+        <!-- ==========================================
+             PAGE 1: HERO & SLIDING ANIMATION
+             ========================================== -->
+        <section id="p1" class="min-h-screen relative flex items-center justify-center px-4 lg:px-12 py-20 border-b border-obsidian-border/30">
+            <div class="max-w-6xl w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                <div class="lg:col-span-7 space-y-6">
+                    <div class="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full glass-card text-solar-flame text-xs font-semibold uppercase tracking-widest border border-solar-red/40">
+                        <span class="w-2 h-2 rounded-full bg-solar-red animate-ping"></span>
+                        <span>Solar Tech Index • 2026</span>
+                    </div>
+
+                    <!-- Sliding Header Animation -->
+                    <div class="space-y-2">
+                        <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight leading-none text-white">
+                            My Top 5 Digital
+                        </h1>
+                        <div class="text-4xl sm:text-6xl font-black text-solar-flame flex items-center space-x-3">
+                            <span>Tools 2026:</span>
+                            <div class="slide-text-container h-14 sm:h-20 inline-block overflow-hidden relative">
+                                <div class="slide-text-wrapper font-display text-transparent bg-clip-text bg-gradient-to-r from-solar-red via-solar-flame to-solar-amber leading-tight">
+                                    <div class="h-14 sm:h-20 flex items-center">Neural Canvas</div>
+                                    <div class="h-14 sm:h-20 flex items-center">Quantum IDE</div>
+                                    <div class="h-14 sm:h-20 flex items-center">Hologram Sync</div>
+                                    <div class="h-14 sm:h-20 flex items-center">SynthBrain DB</div>
+                                    <div class="h-14 sm:h-20 flex items-center">CyberPulse Shield</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <p class="text-slate-400 text-base sm:text-lg max-w-xl font-light leading-relaxed">
+                        Explore the elite top 5 digital tools driving generative spatial graphics, autonomous coding, real-time holographic sync, and quantum security in 2026.
+                    </p>
+
+                    <div class="pt-4 flex flex-wrap gap-4">
+                        <a href="#p3" class="gradient-red-btn text-white font-bold px-6 py-3.5 rounded-xl flex items-center space-x-2 text-sm">
+                            <i data-lucide="zap" class="w-4 h-4"></i>
+                            <span>Explore Tool #1</span>
+                        </a>
+                        <a href="#p6" class="glass-card hover:bg-obsidian-800 text-slate-200 font-semibold px-6 py-3.5 rounded-xl flex items-center space-x-2 text-sm transition border-solar-red/30">
+                            <i data-lucide="sun" class="w-4 h-4 text-solar-flame"></i>
+                            <span>Middle Solar Flare Core</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Page 1 Hero Cards Snapshot -->
+                <div class="lg:col-span-5 relative">
+                    <div class="glass-card p-6 sm:p-8 rounded-3xl relative overflow-hidden border border-solar-red/30 shadow-2xl animate-float">
+                        <div class="absolute -top-20 -right-20 w-48 h-48 bg-solar-red/20 rounded-full blur-3xl pointer-events-none"></div>
+                        <div class="flex justify-between items-center mb-6">
+                            <span class="text-xs uppercase tracking-widest text-slate-400 font-semibold">2026 Solar Top 5 Index</span>
+                            <i data-lucide="flame" class="w-6 h-6 text-solar-flame"></i>
+                        </div>
+                        <div class="space-y-3">
+                            <div class="p-3 rounded-xl bg-obsidian-900/80 border border-obsidian-border flex items-center justify-between">
+                                <span class="text-xs font-bold text-solar-flame">01. NeuralCanvas AI</span>
+                                <i data-lucide="arrow-right" class="w-3.5 h-3.5 text-slate-400"></i>
+                            </div>
+                            <div class="p-3 rounded-xl bg-obsidian-900/80 border border-obsidian-border flex items-center justify-between">
+                                <span class="text-xs font-bold text-solar-flame">02. QuantumCode Studio</span>
+                                <i data-lucide="arrow-right" class="w-3.5 h-3.5 text-slate-400"></i>
+                            </div>
+                            <div class="p-3 rounded-xl bg-obsidian-900/80 border border-obsidian-border flex items-center justify-between">
+                                <span class="text-xs font-bold text-solar-flame">03. HologramSync</span>
+                                <i data-lucide="arrow-right" class="w-3.5 h-3.5 text-slate-400"></i>
+                            </div>
+                            <div class="p-3 rounded-xl bg-obsidian-900/80 border border-obsidian-border flex items-center justify-between">
+                                <span class="text-xs font-bold text-solar-flame">04. SynthBrain DB</span>
+                                <i data-lucide="arrow-right" class="w-3.5 h-3.5 text-slate-400"></i>
+                            </div>
+                            <div class="p-3 rounded-xl bg-obsidian-900/80 border border-obsidian-border flex items-center justify-between">
+                                <span class="text-xs font-bold text-solar-flame">05. CyberPulse Security</span>
+                                <i data-lucide="arrow-right" class="w-3.5 h-3.5 text-slate-400"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- -->
+        <!-- ==========================================
+             PAGE 2: THE 2026 TECH LANDSCAPE
+             ========================================== -->
+        <section id="p2" class="min-h-screen relative flex items-center justify-center px-4 lg:px-12 py-20 border-b border-obsidian-border/30">
+            <div class="max-w-5xl w-full">
+                <div class="text-center space-y-4 mb-16">
+                    <span class="text-solar-flame font-mono text-xs uppercase tracking-widest">[ Page 02 / 10 ]</span>
+                    <h2 class="text-3xl sm:text-5xl font-extrabold text-white">The 2026 Digital Revolution</h2>
+                    <p class="text-slate-400 max-w-2xl mx-auto text-sm sm:text-base">
+                        By 2026, software development transformed into autonomous spatial synthesis, multi-dimensional neural memory, and quantum-resistant threat mitigation.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="glass-card glass-card-hover p-8 rounded-2xl relative">
+                        <div class="w-12 h-12 rounded-xl bg-solar-red/20 border border-solar-red/40 flex items-center justify-center text-solar-flame mb-6">
+                            <i data-lucide="sparkles" class="w-6 h-6"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2 text-white">Spatial Generation</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed">
+                            3D neural rendering and vector spaces synthesize user interfaces instantly based on biological intent.
+                        </p>
+                    </div>
+
+                    <div class="glass-card glass-card-hover p-8 rounded-2xl relative">
+                        <div class="w-12 h-12 rounded-xl bg-solar-flame/20 border border-solar-flame/40 flex items-center justify-center text-solar-flame mb-6">
+                            <i data-lucide="cpu" class="w-6 h-6"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2 text-white">Autonomous IDEs</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed">
+                            Multi-file agent swarms refactor and optimize production codebases directly at compile time.
+                        </p>
+                    </div>
+
+                    <div class="glass-card glass-card-hover p-8 rounded-2xl relative">
+                        <div class="w-12 h-12 rounded-xl bg-solar-amber/20 border border-solar-amber/40 flex items-center justify-center text-solar-amber mb-6">
+                            <i data-lucide="shield-check" class="w-6 h-6"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2 text-white">Quantum Security</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed">
+                            Quantum-resistant lattice encryption safeguards edge microservices against zero-day exploits.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- -->
+        <!-- ==========================================
+             PAGE 3: TOOL #1 - NeuralCanvas AI
+             ========================================== -->
+        <section id="p3" class="min-h-screen relative flex items-center justify-center px-4 lg:px-12 py-20 border-b border-obsidian-border/30">
+            <div class="max-w-6xl w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                <div class="lg:col-span-6 space-y-6">
+                    <div class="flex items-center space-x-3">
+                        <span class="px-3 py-1 rounded-lg bg-solar-red/20 text-solar-flame font-mono text-xs font-bold border border-solar-red/30">TOOL #01</span>
+                        <span class="text-xs text-slate-400">Generative Spatial Design</span>
+                    </div>
+                    
+                    <h2 class="text-3xl sm:text-5xl font-extrabold text-white">NeuralCanvas AI</h2>
+                    <p class="text-slate-300 text-base leading-relaxed">
+                        The ultimate 2026 generative canvas for real-time 3D UI, spatial asset synthesis, and instant vector manipulation. Generates responsive web components in milliseconds from simple sketches or prompts.
+                    </p>
+
+                    <div class="space-y-3 pt-2">
+                        <div class="flex items-center space-x-3 text-sm text-slate-300">
+                            <i data-lucide="check-circle-2" class="w-5 h-5 text-solar-flame"></i>
+                            <span>Realtime Spatial 3D Asset Generation</span>
+                        </div>
+                        <div class="flex items-center space-x-3 text-sm text-slate-300">
+                            <i data-lucide="check-circle-2" class="w-5 h-5 text-solar-flame"></i>
+                            <span>Instant Figma-to-Code Quantum Pipeline</span>
+                        </div>
+                        <div class="flex items-center space-x-3 text-sm text-slate-300">
+                            <i data-lucide="check-circle-2" class="w-5 h-5 text-solar-flame"></i>
+                            <span>Multi-user Neural Collaboration Canvas</span>
+                        </div>
+                    </div>
+
+                    <div class="pt-6">
+                        <a href="https://midjourney.com" target="_blank" rel="noopener noreferrer" class="gradient-red-btn text-white font-bold px-8 py-4 rounded-xl inline-flex items-center space-x-3 group">
+                            <span>Launch NeuralCanvas AI</span>
+                            <i data-lucide="external-link" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-6">
+                    <div class="glass-card p-6 rounded-3xl border border-solar-red/40 relative">
+                        <div class="flex items-center justify-between border-b border-obsidian-border pb-4 mb-4">
+                            <div class="flex space-x-2">
+                                <span class="w-3 h-3 rounded-full bg-solar-red"></span>
+                                <span class="w-3 h-3 rounded-full bg-solar-flame"></span>
+                                <span class="w-3 h-3 rounded-full bg-solar-amber"></span>
+                            </div>
+                            <span class="font-mono text-xs text-slate-400">neural-canvas-2026.app</span>
+                        </div>
+                        <div class="space-y-4">
+                            <div class="h-44 rounded-xl bg-obsidian-950 border border-obsidian-border flex items-center justify-center relative overflow-hidden group">
+                                <div class="absolute inset-0 bg-gradient-to-tr from-solar-red/30 via-transparent to-solar-flame/20 group-hover:opacity-100 transition-opacity"></div>
+                                <i data-lucide="palette" class="w-12 h-12 text-solar-flame animate-pulse"></i>
+                            </div>
+                            <div class="flex justify-between text-xs text-slate-400 font-mono">
+                                <span>Render Mode: 8K Spatial</span>
+                                <span class="text-solar-flame font-bold">FPS: 120</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- -->
+        <!-- ==========================================
+             PAGE 4: TOOL #2 - QuantumCode Studio
+             ========================================== -->
+        <section id="p4" class="min-h-screen relative flex items-center justify-center px-4 lg:px-12 py-20 border-b border-obsidian-border/30">
+            <div class="max-w-6xl w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                <div class="lg:col-span-6 order-2 lg:order-1">
+                    <div class="glass-card p-8 rounded-3xl border border-solar-flame/40 relative space-y-4">
+                        <div class="flex items-center space-x-4 mb-2">
+                            <div class="w-12 h-12 rounded-2xl bg-solar-flame/20 flex items-center justify-center text-solar-flame border border-solar-flame/40">
+                                <i data-lucide="terminal" class="w-6 h-6"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-lg text-white">QuantumCode Studio</h4>
+                                <span class="text-xs text-slate-400">Autonomous Code Orchestration</span>
+                            </div>
+                        </div>
+                        <pre class="font-mono text-xs text-solar-flame overflow-x-auto p-4 rounded-xl bg-obsidian-950 border border-obsidian-border"><code>// Quantum Autonomous Refactor
+import { QuantumAgent } from '@quantum/ide';
+
+const agent = new QuantumAgent();
+await agent.optimizeFullStack({
+  targetLatency: '0.5ms',
+  autoFixSecurity: true
+});</code></pre>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-6 order-1 lg:order-2 space-y-6">
+                    <div class="flex items-center space-x-3">
+                        <span class="px-3 py-1 rounded-lg bg-solar-flame/20 text-solar-flame font-mono text-xs font-bold border border-solar-flame/30">TOOL #02</span>
+                        <span class="text-xs text-slate-400">Autonomous Code Engine</span>
+                    </div>
+                    
+                    <h2 class="text-3xl sm:text-5xl font-extrabold text-white">QuantumCode Studio</h2>
+                    <p class="text-slate-300 text-base leading-relaxed">
+                        Next-generation cloud IDE featuring persistent agent swarms that continuously audit codebases, write automated unit tests, and resolve edge bottlenecks before deployment.
+                    </p>
+
+                    <div class="pt-4">
+                        <a href="https://cursor.com" target="_blank" rel="noopener noreferrer" class="gradient-red-btn text-white font-bold px-8 py-4 rounded-xl inline-flex items-center space-x-3 group">
+                            <span>Open QuantumCode Studio</span>
+                            <i data-lucide="external-link" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- -->
+        <!-- ==========================================
+             PAGE 5: TOOL #3 - HologramSync
+             ========================================== -->
+        <section id="p5" class="min-h-screen relative flex items-center justify-center px-4 lg:px-12 py-20 border-b border-obsidian-border/30">
+            <div class="max-w-6xl w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                <div class="lg:col-span-6 space-y-6">
+                    <div class="flex items-center space-x-3">
+                        <span class="px-3 py-1 rounded-lg bg-solar-amber/20 text-solar-amber font-mono text-xs font-bold border border-solar-amber/30">TOOL #03</span>
+                        <span class="text-xs text-slate-400">Spatial Holographic Sync</span>
+                    </div>
+                    
+                    <h2 class="text-3xl sm:text-5xl font-extrabold text-white">HologramSync</h2>
+                    <p class="text-slate-300 text-base leading-relaxed">
+                        Spatial communication platform connecting remote engineering teams via photorealistic zero-latency volumetric hologram streams and shared 3D code canvasses.
+                    </p>
+
+                    <div class="pt-4">
+                        <a href="https://spatial.io" target="_blank" rel="noopener noreferrer" class="gradient-red-btn text-white font-bold px-8 py-4 rounded-xl inline-flex items-center space-x-3 group">
+                            <span>Enter HologramSync Hub</span>
+                            <i data-lucide="external-link" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-6">
+                    <div class="glass-card p-8 rounded-3xl border border-solar-amber/40 text-center space-y-6">
+                        <i data-lucide="eye" class="w-16 h-16 text-solar-amber mx-auto animate-pulse"></i>
+                        <h4 class="text-2xl font-bold text-white">3D Volumetric Grid Active</h4>
+                        <div class="grid grid-cols-2 gap-4 text-left">
+                            <div class="p-4 rounded-xl bg-obsidian-950 border border-obsidian-border">
+                                <span class="text-xs text-slate-400 block">Bandwidth Compression</span>
+                                <span class="text-lg font-bold text-solar-amber">99.8%</span>
+                            </div>
+                            <div class="p-4 rounded-xl bg-obsidian-950 border border-obsidian-border">
+                                <span class="text-xs text-slate-400 block">Spatial Latency</span>
+                                <span class="text-lg font-bold text-solar-amber">&lt; 2ms</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- -->
+        <!-- ==========================================
+             PAGE 6: MIDDLE SECTION - SICK RED SOLAR SUPERNOVA CORE
+             ========================================== -->
+        <section id="p6" class="min-h-screen relative flex flex-col items-center justify-center px-4 py-20 border-b border-obsidian-border/30 overflow-hidden">
+            <div class="text-center space-y-3 z-10 mb-6">
+                <span class="text-solar-flame font-mono text-xs uppercase tracking-widest">[ Page 06 / 10 • Middle Solar Experience ]</span>
+                <h2 class="text-3xl sm:text-5xl font-black tracking-tight text-white">Interactive Red Supernova Core</h2>
+                <p class="text-slate-400 text-sm max-w-lg mx-auto">
+                    Drag your cursor or tap to warp the magnetic flare turbulence and gravitational field lines.
+                </p>
+            </div>
+
+            <!-- Supernova Canvas Container -->
+            <div class="relative w-full max-w-4xl h-[480px] rounded-3xl overflow-hidden glass-card border border-solar-red/50 shadow-2xl flex items-center justify-center">
+                <canvas id="supernovaCanvas" class="w-full h-full cursor-crosshair"></canvas>
+                <div class="absolute bottom-4 left-4 right-4 flex justify-between items-center text-xs text-slate-400 pointer-events-none px-4">
+                    <span>Solar Temperature: <strong class="text-solar-flame">15.7 Million K</strong></span>
+                    <span>Active Plasma Flares: <strong class="text-solar-flame">850 Streamers</strong></span>
+                </div>
+            </div>
+        </section>
+
+        <!-- -->
+        <!-- ==========================================
+             PAGE 7: TOOL #4 - SynthBrain DB
+             ========================================== -->
+        <section id="p7" class="min-h-screen relative flex items-center justify-center px-4 lg:px-12 py-20 border-b border-obsidian-border/30">
+            <div class="max-w-6xl w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                <div class="lg:col-span-6 order-2 lg:order-1">
+                    <div class="glass-card p-8 rounded-3xl border border-solar-red/40 space-y-6">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center space-x-3">
+                                <i data-lucide="database" class="w-8 h-8 text-solar-flame"></i>
+                                <span class="font-bold text-xl text-white">SynthBrain DB</span>
+                            </div>
+                            <span class="px-2.5 py-1 rounded-md bg-solar-red/20 text-solar-flame text-xs font-mono">v4.0-neural</span>
+                        </div>
+                        <p class="text-sm text-slate-300">
+                            Neural-native knowledge base storing unstructured enterprise data as dynamic multidimensional graph vectors for zero-delay retrieval.
+                        </p>
+                        <div class="p-4 rounded-xl bg-obsidian-950 border border-obsidian-border flex justify-between items-center">
+                            <span class="text-xs text-slate-400">Vector Search Throughput:</span>
+                            <span class="text-solar-flame font-bold font-mono">1.2M QPS</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-6 order-1 lg:order-2 space-y-6">
+                    <div class="flex items-center space-x-3">
+                        <span class="px-3 py-1 rounded-lg bg-solar-red/20 text-solar-flame font-mono text-xs font-bold border border-solar-red/30">TOOL #04</span>
+                        <span class="text-xs text-slate-400">Neural Knowledge Graph</span>
+                    </div>
+                    
+                    <h2 class="text-3xl sm:text-5xl font-extrabold text-white">SynthBrain DB</h2>
+                    <p class="text-slate-300 text-base leading-relaxed">
+                        The premiere neural graph database engineered for AI agents. Combines vector similarity searches with temporal graph logic in a single unified engine.
+                    </p>
+
+                    <div class="pt-4">
+                        <a href="https://pinecone.io" target="_blank" rel="noopener noreferrer" class="gradient-red-btn text-white font-bold px-8 py-4 rounded-xl inline-flex items-center space-x-3 group">
+                            <span>Visit SynthBrain DB</span>
+                            <i data-lucide="external-link" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- -->
+        <!-- ==========================================
+             PAGE 8: TOOL #5 - CyberPulse Security
+             ========================================== -->
+        <section id="p8" class="min-h-screen relative flex items-center justify-center px-4 lg:px-12 py-20 border-b border-obsidian-border/30">
+            <div class="max-w-6xl w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                <div class="lg:col-span-6 space-y-6">
+                    <div class="flex items-center space-x-3">
+                        <span class="px-3 py-1 rounded-lg bg-solar-flame/20 text-solar-flame font-mono text-xs font-bold border border-solar-flame/30">TOOL #05</span>
+                        <span class="text-xs text-slate-400">Quantum Security Shield</span>
+                    </div>
+                    
+                    <h2 class="text-3xl sm:text-5xl font-extrabold text-white">CyberPulse Security</h2>
+                    <p class="text-slate-300 text-base leading-relaxed">
+                        Quantum-resistant threat shield providing real-time lattice cryptography protection, automated vulnerability patching, and AI agent API traffic monitoring.
+                    </p>
+
+                    <div class="pt-4">
+                        <a href="https://cloudflare.com" target="_blank" rel="noopener noreferrer" class="gradient-red-btn text-white font-bold px-8 py-4 rounded-xl inline-flex items-center space-x-3 group">
+                            <span>Deploy CyberPulse Shield</span>
+                            <i data-lucide="external-link" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-6">
+                    <div class="glass-card p-8 rounded-3xl border border-solar-flame/40 text-center relative overflow-hidden">
+                        <div class="absolute inset-0 bg-gradient-to-tr from-solar-red/10 to-transparent"></div>
+                        <i data-lucide="shield-alert" class="w-16 h-16 text-solar-flame mx-auto mb-4 animate-pulse"></i>
+                        <h4 class="text-xl font-bold text-white mb-2">Zero-Trust Lattice Encryption</h4>
+                        <p class="text-xs text-slate-400">Blocking 100% quantum brute-force attacks in real-time.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- -->
+        <!-- ==========================================
+             PAGE 9: TOOL MATRIX COMPARISON
+             ========================================== -->
+        <section id="p9" class="min-h-screen relative flex items-center justify-center px-4 lg:px-12 py-20 border-b border-obsidian-border/30">
+            <div class="max-w-6xl w-full">
+                <div class="text-center space-y-4 mb-12">
+                    <span class="text-solar-flame font-mono text-xs uppercase tracking-widest">[ Page 09 / 10 ]</span>
+                    <h2 class="text-3xl sm:text-5xl font-extrabold text-white">2026 Tool Comparison Matrix</h2>
+                    <p class="text-slate-400 text-sm max-w-xl mx-auto">
+                        A detailed breakdown of all 5 tools, their key capabilities, and direct access portals.
+                    </p>
+                </div>
+
+                <div class="glass-card rounded-2xl overflow-hidden border border-obsidian-border">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-sm text-slate-300">
+                            <thead class="bg-obsidian-900 text-xs uppercase tracking-wider text-solar-flame border-b border-obsidian-border">
+                                <tr>
+                                    <th class="p-4">Tool Name</th>
+                                    <th class="p-4">Core Focus</th>
+                                    <th class="p-4">2026 Feature</th>
+                                    <th class="p-4">Best Target</th>
+                                    <th class="p-4 text-right">Redirect</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-obsidian-border font-medium">
+                                <tr class="hover:bg-obsidian-800/60 transition">
+                                    <td class="p-4 text-white font-bold flex items-center space-x-2">
+                                        <span class="w-2 h-2 rounded-full bg-solar-red"></span>
+                                        <span>NeuralCanvas AI</span>
+                                    </td>
+                                    <td class="p-4 text-slate-300">3D UI Generation</td>
+                                    <td class="p-4 text-solar-flame font-mono">Realtime Spatial</td>
+                                    <td class="p-4 text-slate-400">Design Engineers</td>
+                                    <td class="p-4 text-right">
+                                        <a href="https://midjourney.com" target="_blank" class="px-3 py-1.5 rounded-lg bg-solar-red/20 text-solar-flame hover:bg-solar-red hover:text-white font-bold text-xs transition">Visit</a>
+                                    </td>
+                                </tr>
+                                <tr class="hover:bg-obsidian-800/60 transition">
+                                    <td class="p-4 text-white font-bold flex items-center space-x-2">
+                                        <span class="w-2 h-2 rounded-full bg-solar-flame"></span>
+                                        <span>QuantumCode Studio</span>
+                                    </td>
+                                    <td class="p-4 text-slate-300">Autonomous IDE</td>
+                                    <td class="p-4 text-solar-flame font-mono">Agent Swarms</td>
+                                    <td class="p-4 text-slate-400">Full-Stack Developers</td>
+                                    <td class="p-4 text-right">
+                                        <a href="https://cursor.com" target="_blank" class="px-3 py-1.5 rounded-lg bg-solar-flame/20 text-solar-flame hover:bg-solar-flame hover:text-white font-bold text-xs transition">Visit</a>
+                                    </td>
+                                </tr>
+                                <tr class="hover:bg-obsidian-800/60 transition">
+                                    <td class="p-4 text-white font-bold flex items-center space-x-2">
+                                        <span class="w-2 h-2 rounded-full bg-solar-amber"></span>
+                                        <span>HologramSync</span>
+                                    </td>
+                                    <td class="p-4 text-slate-300">3D Hologram Hub</td>
+                                    <td class="p-4 text-solar-amber font-mono">Zero Latency Stream</td>
+                                    <td class="p-4 text-slate-400">Remote Product Teams</td>
+                                    <td class="p-4 text-right">
+                                        <a href="https://spatial.io" target="_blank" class="px-3 py-1.5 rounded-lg bg-solar-amber/20 text-solar-amber hover:bg-solar-amber hover:text-white font-bold text-xs transition">Visit</a>
+                                    </td>
+                                </tr>
+                                <tr class="hover:bg-obsidian-800/60 transition">
+                                    <td class="p-4 text-white font-bold flex items-center space-x-2">
+                                        <span class="w-2 h-2 rounded-full bg-solar-red"></span>
+                                        <span>SynthBrain DB</span>
+                                    </td>
+                                    <td class="p-4 text-slate-300">Neural Knowledge Base</td>
+                                    <td class="p-4 text-solar-flame font-mono">Dynamic Temporal Graph</td>
+                                    <td class="p-4 text-slate-400">AI Architects</td>
+                                    <td class="p-4 text-right">
+                                        <a href="https://pinecone.io" target="_blank" class="px-3 py-1.5 rounded-lg bg-solar-red/20 text-solar-flame hover:bg-solar-red hover:text-white font-bold text-xs transition">Visit</a>
+                                    </td>
+                                </tr>
+                                <tr class="hover:bg-obsidian-800/60 transition">
+                                    <td class="p-4 text-white font-bold flex items-center space-x-2">
+                                        <span class="w-2 h-2 rounded-full bg-solar-flame"></span>
+                                        <span>CyberPulse Security</span>
+                                    </td>
+                                    <td class="p-4 text-slate-300">Quantum Shield</td>
+                                    <td class="p-4 text-solar-flame font-mono">Lattice Crypto</td>
+                                    <td class="p-4 text-slate-400">DevSecOps Teams</td>
+                                    <td class="p-4 text-right">
+                                        <a href="https://cloudflare.com" target="_blank" class="px-3 py-1.5 rounded-lg bg-solar-flame/20 text-solar-flame hover:bg-solar-flame hover:text-white font-bold text-xs transition">Visit</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- -->
+        <!-- ==========================================
+             PAGE 10: ALL 5 TOOLS REDIRECT LAUNCHPAD
+             ========================================== -->
+        <section id="p10" class="min-h-screen relative flex flex-col justify-between px-4 lg:px-12 py-20">
+            <div class="max-w-6xl w-full mx-auto space-y-12 my-auto">
+                <div class="text-center space-y-4">
+                    <span class="text-solar-flame font-mono text-xs uppercase tracking-widest">[ Page 10 / 10 • Redirect Launchpad ]</span>
+                    <h2 class="text-4xl sm:text-6xl font-black text-white">Direct Tool Launchpad</h2>
+                    <p class="text-slate-400 text-sm sm:text-base max-w-xl mx-auto">
+                        Click any tool card below to redirect instantly to its official 2026 destination site.
+                    </p>
+                </div>
+
+                <!-- 5 TOOL DIRECT REDIRECT CARDS -->
+                <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
+                    <!-- Tool 1 -->
+                    <a href="https://midjourney.com" target="_blank" rel="noopener noreferrer" class="glass-card glass-card-hover p-6 rounded-2xl flex flex-col justify-between text-center group border-solar-red/50">
+                        <div class="space-y-3">
+                            <div class="w-10 h-10 rounded-xl bg-solar-red/20 text-solar-flame mx-auto flex items-center justify-center font-bold text-sm border border-solar-red/40">01</div>
+                            <h3 class="font-bold text-white text-base">NeuralCanvas</h3>
+                            <p class="text-xs text-slate-400">Generative Spatial</p>
+                        </div>
+                        <div class="mt-6 pt-4 border-t border-obsidian-border flex items-center justify-center space-x-1 text-xs text-solar-flame font-bold group-hover:underline">
+                            <span>Redirect Now</span>
+                            <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+                        </div>
+                    </a>
+
+                    <!-- Tool 2 -->
+                    <a href="https://cursor.com" target="_blank" rel="noopener noreferrer" class="glass-card glass-card-hover p-6 rounded-2xl flex flex-col justify-between text-center group border-solar-flame/50">
+                        <div class="space-y-3">
+                            <div class="w-10 h-10 rounded-xl bg-solar-flame/20 text-solar-flame mx-auto flex items-center justify-center font-bold text-sm border border-solar-flame/40">02</div>
+                            <h3 class="font-bold text-white text-base">QuantumCode</h3>
+                            <p class="text-xs text-slate-400">Autonomous IDE</p>
+                        </div>
+                        <div class="mt-6 pt-4 border-t border-obsidian-border flex items-center justify-center space-x-1 text-xs text-solar-flame font-bold group-hover:underline">
+                            <span>Redirect Now</span>
+                            <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+                        </div>
+                    </a>
+
+                    <!-- Tool 3 -->
+                    <a href="https://spatial.io" target="_blank" rel="noopener noreferrer" class="glass-card glass-card-hover p-6 rounded-2xl flex flex-col justify-between text-center group border-solar-amber/50">
+                        <div class="space-y-3">
+                            <div class="w-10 h-10 rounded-xl bg-solar-amber/20 text-solar-amber mx-auto flex items-center justify-center font-bold text-sm border border-solar-amber/40">03</div>
+                            <h3 class="font-bold text-white text-base">HologramSync</h3>
+                            <p class="text-xs text-slate-400">Spatial Sync</p>
+                        </div>
+                        <div class="mt-6 pt-4 border-t border-obsidian-border flex items-center justify-center space-x-1 text-xs text-solar-amber font-bold group-hover:underline">
+                            <span>Redirect Now</span>
+                            <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+                        </div>
+                    </a>
+
+                    <!-- Tool 4 -->
+                    <a href="https://pinecone.io" target="_blank" rel="noopener noreferrer" class="glass-card glass-card-hover p-6 rounded-2xl flex flex-col justify-between text-center group border-solar-red/50">
+                        <div class="space-y-3">
+                            <div class="w-10 h-10 rounded-xl bg-solar-red/20 text-solar-flame mx-auto flex items-center justify-center font-bold text-sm border border-solar-red/40">04</div>
+                            <h3 class="font-bold text-white text-base">SynthBrain DB</h3>
+                            <p class="text-xs text-slate-400">Neural Graph</p>
+                        </div>
+                        <div class="mt-6 pt-4 border-t border-obsidian-border flex items-center justify-center space-x-1 text-xs text-solar-flame font-bold group-hover:underline">
+                            <span>Redirect Now</span>
+                            <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+                        </div>
+                    </a>
+
+                    <!-- Tool 5 -->
+                    <a href="https://cloudflare.com" target="_blank" rel="noopener noreferrer" class="glass-card glass-card-hover p-6 rounded-2xl flex flex-col justify-between text-center group border-solar-flame/50">
+                        <div class="space-y-3">
+                            <div class="w-10 h-10 rounded-xl bg-solar-flame/20 text-solar-flame mx-auto flex items-center justify-center font-bold text-sm border border-solar-flame/40">05</div>
+                            <h3 class="font-bold text-white text-base">CyberPulse</h3>
+                            <p class="text-xs text-slate-400">Quantum Shield</p>
+                        </div>
+                        <div class="mt-6 pt-4 border-t border-obsidian-border flex items-center justify-center space-x-1 text-xs text-solar-flame font-bold group-hover:underline">
+                            <span>Redirect Now</span>
+                            <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <footer class="mt-20 pt-8 border-t border-obsidian-border text-center text-xs text-slate-500">
+                <p>© 2026 Solar Tech Index. Deep Space Red Obsidian Edition.</p>
+            </footer>
+        </section>
+
+    </main>
+
+    <!-- -->
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileDrawer = document.getElementById('mobileDrawer');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileDrawer.classList.toggle('translate-x-full');
+        });
+
+        function closeMobileMenu() {
+            mobileDrawer.classList.add('translate-x-full');
+        }
+
+        // ==========================================
+        // 1. CONTINUOUS HALF-SCREEN RED SOLAR WIND CANVAS
+        // ==========================================
+        const windCanvas = document.getElementById('solarWindCanvas');
+        const windCtx = windCanvas.getContext('2d');
+
+        let windWidth, windHeight;
+        const windStreams = [];
+        const STREAM_COUNT = 110;
+
+        function resizeWindCanvas() {
+            const container = document.getElementById('wind-canvas-container');
+            windWidth = container.clientWidth;
+            windHeight = container.clientHeight;
+            windCanvas.width = windWidth;
+            windCanvas.height = windHeight;
+        }
+
+        class SolarWindStream {
+            constructor() {
+                this.reset(true);
+            }
+
+            reset(initial = false) {
+                this.x = initial ? Math.random() * windWidth : windWidth + Math.random() * 80;
+                this.y = Math.random() * windHeight;
+                this.length = Math.random() * 120 + 40;
+                this.speed = Math.random() * 4 + 2;
+                this.thickness = Math.random() * 2 + 0.6;
+                this.waveOffset = Math.random() * Math.PI * 2;
+                this.waveSpeed = Math.random() * 0.03 + 0.01;
+
+                // Red-Orange Solar Plasma Palette
+                const colors = ['#ff1744', '#ff5252', '#d50000', '#ff9100', '#ff2a5f'];
+                this.color = colors[Math.floor(Math.random() * colors.length)];
+            }
+
+            update() {
+                this.x -= this.speed;
+                this.waveOffset += this.waveSpeed;
+                this.y += Math.sin(this.waveOffset) * 1.2;
+
+                if (this.x < -this.length) {
+                    this.reset(false);
+                }
+            }
+
+            draw() {
+                windCtx.beginPath();
+                const grad = windCtx.createLinearGradient(this.x, this.y, this.x + this.length, this.y);
+                grad.addColorStop(0, 'transparent');
+                grad.addColorStop(0.5, this.color);
+                grad.addColorStop(1, 'transparent');
+
+                windCtx.strokeStyle = grad;
+                windCtx.lineWidth = this.thickness;
+                windCtx.moveTo(this.x, this.y);
+                windCtx.bezierCurveTo(
+                    this.x + this.length * 0.3, this.y + Math.sin(this.waveOffset) * 10,
+                    this.x + this.length * 0.7, this.y - Math.cos(this.waveOffset) * 10,
+                    this.x + this.length, this.y
+                );
+                windCtx.stroke();
+            }
+        }
+
+        function initSolarWind() {
+            resizeWindCanvas();
+            windStreams.length = 0;
+            for (let i = 0; i < STREAM_COUNT; i++) {
+                windStreams.push(new SolarWindStream());
+            }
+        }
+
+        function animateSolarWind() {
+            windCtx.clearRect(0, 0, windWidth, windHeight);
+            windStreams.forEach(s => {
+                s.update();
+                s.draw();
+            });
+            requestAnimationFrame(animateSolarWind);
+        }
+
+        // ==========================================
+        // 2. BACKGROUND COSMIC RED DUST FX
+        // ==========================================
+        const dustCanvas = document.getElementById('cosmicDustCanvas');
+        const dustCtx = dustCanvas.getContext('2d');
+        let dustWidth, dustHeight;
+        const dustParticles = [];
+
+        function resizeDustCanvas() {
+            dustWidth = window.innerWidth;
+            dustHeight = window.innerHeight;
+            dustCanvas.width = dustWidth;
+            dustCanvas.height = dustHeight;
+        }
+
+        function initDust() {
+            resizeDustCanvas();
+            dustParticles.length = 0;
+            for (let i = 0; i < 140; i++) {
+                dustParticles.push({
+                    x: Math.random() * dustWidth,
+                    y: Math.random() * dustHeight,
+                    radius: Math.random() * 1.5,
+                    alpha: Math.random(),
+                    speed: Math.random() * 0.015 + 0.003
+                });
+            }
+        }
+
+        function animateDust() {
+            dustCtx.clearRect(0, 0, dustWidth, dustHeight);
+            dustParticles.forEach(p => {
+                p.alpha += p.speed;
+                if (p.alpha > 1 || p.alpha < 0) p.speed = -p.speed;
+                dustCtx.fillStyle = `rgba(255, 23, 68, ${Math.abs(p.alpha) * 0.6})`;
+                dustCtx.beginPath();
+                dustCtx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                dustCtx.fill();
+            });
+            requestAnimationFrame(animateDust);
+        }
+
+        // ==========================================
+        // 3. INTERACTIVE RED SUPERNOVA CORE (PAGE 6)
+        // ==========================================
+        const supernovaCanvas = document.getElementById('supernovaCanvas');
+        const novaCtx = supernovaCanvas.getContext('2d');
+        let novaWidth, novaHeight;
+        const novaParticles = [];
+        const NOVA_COUNT = 600;
+        let mouseX = 0, mouseY = 0;
+        let isHoveringNova = false;
+
+        function resizeNovaCanvas() {
+            if (!supernovaCanvas.parentElement) return;
+            novaWidth = supernovaCanvas.parentElement.clientWidth;
+            novaHeight = supernovaCanvas.parentElement.clientHeight;
+            supernovaCanvas.width = novaWidth;
+            supernovaCanvas.height = novaHeight;
+            mouseX = novaWidth / 2;
+            mouseY = novaHeight / 2;
+        }
+
+        class SupernovaParticle {
+            constructor() {
+                this.reset();
+            }
+
+            reset() {
+                this.angle = Math.random() * Math.PI * 2;
+                this.distance = Math.random() * (novaWidth * 0.42) + 15;
+                this.speed = (Math.random() * 0.025 + 0.008) * (180 / this.distance);
+                this.radius = Math.random() * 2.2 + 0.6;
+                
+                const colors = ['#ff1744', '#ff5252', '#ff9100', '#d50000'];
+                this.color = colors[Math.floor(Math.random() * colors.length)];
+            }
+
+            update() {
+                this.angle += this.speed;
+                this.distance -= 0.3;
+
+                if (this.distance < 4) {
+                    this.reset();
+                    this.distance = novaWidth * 0.42;
+                }
+            }
+
+            draw() {
+                const cx = isHoveringNova ? mouseX : novaWidth / 2;
+                const cy = isHoveringNova ? mouseY : novaHeight / 2;
+
+                const x = cx + Math.cos(this.angle) * this.distance;
+                const y = cy + Math.sin(this.angle) * this.distance;
+
+                novaCtx.fillStyle = this.color;
+                novaCtx.beginPath();
+                novaCtx.arc(x, y, this.radius, 0, Math.PI * 2);
+                novaCtx.fill();
+            }
+        }
+
+        function initNova() {
+            resizeNovaCanvas();
+            novaParticles.length = 0;
+            for (let i = 0; i < NOVA_COUNT; i++) {
+                novaParticles.push(new SupernovaParticle());
+            }
+        }
+
+        function animateNova() {
+            novaCtx.fillStyle = 'rgba(5, 1, 3, 0.25)';
+            novaCtx.fillRect(0, 0, novaWidth, novaHeight);
+
+            const cx = isHoveringNova ? mouseX : novaWidth / 2;
+            const cy = isHoveringNova ? mouseY : novaHeight / 2;
+
+            // Radiant Core Flare
+            const glow = novaCtx.createRadialGradient(cx, cy, 0, cx, cy, 50);
+            glow.addColorStop(0, '#ff1744');
+            glow.addColorStop(0.4, 'rgba(255, 82, 82, 0.4)');
+            glow.addColorStop(1, 'transparent');
+
+            novaCtx.fillStyle = glow;
+            novaCtx.beginPath();
+            novaCtx.arc(cx, cy, 50, 0, Math.PI * 2);
+            novaCtx.fill();
+
+            novaParticles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+
+            requestAnimationFrame(animateNova);
+        }
+
+        // Nova Mouse Interaction
+        supernovaCanvas.addEventListener('mousemove', (e) => {
+            const rect = supernovaCanvas.getBoundingClientRect();
+            mouseX = e.clientX - rect.left;
+            mouseY = e.clientY - rect.top;
+            isHoveringNova = true;
+        });
+
+        supernovaCanvas.addEventListener('mouseleave', () => {
+            isHoveringNova = false;
+        });
+
+        supernovaCanvas.addEventListener('touchmove', (e) => {
+            if (e.touches.length > 0) {
+                const rect = supernovaCanvas.getBoundingClientRect();
+                mouseX = e.touches[0].clientX - rect.left;
+                mouseY = e.touches[0].clientY - rect.top;
+                isHoveringNova = true;
+            }
+        });
+
+        supernovaCanvas.addEventListener('touchend', () => {
+            isHoveringNova = false;
+        });
+
+        // Global Resize Listener
+        window.addEventListener('resize', () => {
+            resizeWindCanvas();
+            resizeDustCanvas();
+            resizeNovaCanvas();
+        });
+
+        // Run Onload
+        window.onload = function() {
+            initSolarWind();
+            animateSolarWind();
+
+            initDust();
+            animateDust();
+
+            initNova();
+            animateNova();
+        };
+    </script>
+</body>
+</html>
